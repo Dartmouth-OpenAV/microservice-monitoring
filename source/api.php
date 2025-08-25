@@ -8,9 +8,9 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 ///////////////////////////////////////////////////
 //
 //  Endpoints:
-//  external - ping EXTERNAL_HOST - usage: /external
-//  router - ping router_host - usage: /router/{router_host}
-//  dns - ping NAMESERVER - usage: /dns
+//  external - ping EXTERNAL_HOST - usage: /pingexternal
+//  router - ping router_host - usage: /pingrouter/{router_host}
+//  dns - ping NAMESERVER - usage: /pingdns
 //
 ///////////////////////////////////////////////////
 
@@ -25,15 +25,15 @@ $external_host = "google.com";
 $output = '"false"';
 
 if ($request_method == "GET") {
-    if ($endpoint === 'external') {
+    if ($endpoint === 'pingexternal') {
         if (get_ping($external_host)) {
             $output = '"true"';
         }
-    } elseif ($endpoint === 'router') {
+    } elseif ($endpoint === 'pingrouter') {
         if (get_ping($router_host)) {
             $output = '"true"';
         }
-    } elseif ($endpoint === 'dns') {
+    } elseif ($endpoint === 'pingdns') {
         if (get_ping($nameserver)) {
             $output = '"true"';
         }
