@@ -1,11 +1,22 @@
-FROM php:8.2-apache
+FROM golang:latest
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends iputils-ping && \
-    rm -rf /var/lib/apt/lists/*
+COPY source /go/src
 
-COPY configs/000-default.conf /etc/apache2/sites-available
+ENV GOPATH=
 
-COPY source/ /var/www/html/
+WORKDIR /go/src/microservice-framework
+RUN go mod init github.com/Dartmouth-OpenAV/microservice-framework
+RUN go mod tidy
 
-RUN a2enmod rewrite
+WORKDIR /go
+# Change the module path for each microservice
+RUN go mod init github.com/Dartmouth-OpenAV/microservice-monitoring
+RUN go mod edit -replace github.com/Dartmouth-OpenAV/microservice-framework=./src/microservice-framework
+RUN go mod tidy
+
+WORKDIR /go/src
+RUN go get -u
+RUN go build -o /go/bin/microservice
+
+# Use this entrypoint for a a fully functional docker image
+ENTRYPOINT /go/bin/microservice
