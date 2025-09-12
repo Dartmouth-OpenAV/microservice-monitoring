@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "4c9fa723-c084-4474-909b-aa77741d144c",
+		"name": "Monitoring Microservice",
+		"description": "A collection of all possible GET calls for the Monitoring microservice. You can replace the values in double curly brackets manually or create matching environment variables that will automatically fill in the values.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26997154"
+	},
+	"item": [
+		{
+			"name": "GET pinghost",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{microserviceURL}}/{{hostFQDN}}/pinghost",
+					"protocol": "http",
+					"host": [
+						"{{microserviceURL}}"
+					],
+					"path": [
+						"{{hostFQDN}}",
+						"pinghost"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
