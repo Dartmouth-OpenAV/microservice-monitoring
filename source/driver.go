@@ -55,14 +55,15 @@ func pingHostDo(socketKey string) (string, error) {
 	}
 	
 	value := `"unknown"`
-	// Extract the substring between firstAtSymbol+1 and lastColon
+	
 	if firstAtSymbol != -1 && lastColon > firstAtSymbol {
+		// Extract the substring between firstAtSymbol+1 and lastColon
 		host = socketKey[firstAtSymbol+1 : lastColon]
+		// Define and run the ping command
 		cmd = exec.Command("ping", "-c", "1", "-W", "1", host)
 		err := cmd.Run()		
 		if err != nil {
 			framework.AddToErrors(socketKey, function+" - 2q34awev5 ping "+host+" failed")
-			errMsg := 
 			value = `"false"`
 		} else { // Succeeded
 			value = `"true"`
