@@ -1,5 +1,8 @@
 FROM golang:latest
 
+# Install ping (iputils-ping) - for Debian-based images
+RUN apt-get update && apt-get install -y iputils-ping
+
 COPY source /go/src
 
 ENV GOPATH=
