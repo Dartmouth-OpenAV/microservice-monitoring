@@ -20,12 +20,12 @@ import (
 func pingHost(socketKey string) (string, error) {
 	// function := "pingHost"
 
-	value := `"unknown"`
+	value := "unknown"
 	err := error(nil)
 	maxRetries := 2
 	for maxRetries > 0 {
 		value, err = pingHostDo(socketKey)
-		if value == `"unknown"` { // Something went wrong - perhaps try again
+		if value == "unknown" { // Something went wrong - perhaps try again
 			maxRetries--
 			time.Sleep(1 * time.Second)
 		} else { // Succeeded
@@ -53,20 +53,20 @@ func pingHostDo(socketKey string) (string, error) {
 	if lastColon <= firstAtSymbol {
 		framework.AddToErrors(socketKey, function+" - 2q34awev7 only one colon in socketKey"+socketKey) // Only one colon or last colon is before first
 	}
-	
-	value := `"unknown"`
-	
+
+	value := "unknown"
+
 	if firstAtSymbol != -1 && lastColon > firstAtSymbol {
 		// Extract the substring between firstAtSymbol+1 and lastColon
 		host = socketKey[firstAtSymbol+1 : lastColon]
 		// Define and run the ping command
 		cmd = exec.Command("ping", "-c", "1", "-W", "1", host)
-		err := cmd.Run()		
+		err := cmd.Run()
 		if err != nil {
 			framework.AddToErrors(socketKey, function+" - 2q34awev5 ping "+host+" failed")
-			value = `"false"`
+			value = "false"
 		} else { // Succeeded
-			value = `"true"`
+			value = "true"
 		}
 	}
 	// If we got here, the response was good, so successful return with the state indication
